@@ -130,4 +130,9 @@ public final class AlternateRepositoryDatabase extends ObjectDatabase {
 	public List<PackFile> listLocalPacks() {
 		return odb.listLocalPacks();
 	}
+
+	@Override
+	public void updateInfoCache() {
+		odb.updateInfoCache();
+	}
 }

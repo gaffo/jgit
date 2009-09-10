@@ -75,6 +75,13 @@ public abstract class ObjectDatabase {
 	public abstract List<PackFile> listLocalPacks();
 	
 	/**
+	 * Creates the caches that are typically done by 
+	 * update-server-info, namely objects/info/packs and 
+	 * info/refs
+	 */
+	public abstract void updateInfoCache();
+	
+	/**
 	 * Does this database exist yet?
 	 *
 	 * @return true if this database is already created; false if the caller
