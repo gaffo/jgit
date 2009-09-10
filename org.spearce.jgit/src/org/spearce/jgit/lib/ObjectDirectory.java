@@ -508,4 +508,9 @@ public class ObjectDirectory extends ObjectDatabase {
 			return true;
 		}
 	}
+
+	@Override
+	public List<PackFile> listLocalPacks() {
+		return new ArrayList<PackFile>(Arrays.asList(packList.get().packs));
+	}
 }

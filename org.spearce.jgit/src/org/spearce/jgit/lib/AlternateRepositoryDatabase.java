@@ -39,6 +39,7 @@ package org.spearce.jgit.lib;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * An ObjectDatabase of another {@link Repository}.
@@ -123,5 +124,10 @@ public final class AlternateRepositoryDatabase extends ObjectDatabase {
 	@Override
 	protected void closeAlternates(final ObjectDatabase[] alt) {
 		// Do nothing; these belong to odb to close, not us.
+	}
+
+	@Override
+	public List<PackFile> listLocalPacks() {
+		return odb.listLocalPacks();
 	}
 }

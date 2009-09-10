@@ -39,6 +39,7 @@ package org.spearce.jgit.lib;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
@@ -64,7 +65,15 @@ public abstract class ObjectDatabase {
 	protected ObjectDatabase() {
 		alternates = new AtomicReference<ObjectDatabase[]>();
 	}
-
+	
+	/**
+	 * The list of Packs THIS repo contains
+	 * 
+	 * @return List<PackFile> of package names contained in this repo. 
+	 * 		   Should be an empty list if there are none.
+	 */
+	public abstract List<PackFile> listLocalPacks();
+	
 	/**
 	 * Does this database exist yet?
 	 *
