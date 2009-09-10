@@ -2,3 +2,7 @@
 /jgit.jar
 /jgit_src.zip
 /jgit_docs.zip
+.classpath
+.project
+bin
+.gitignore
