@@ -62,6 +62,7 @@ import org.spearce.jgit.lib.PackLock;
 import org.spearce.jgit.lib.PersonIdent;
 import org.spearce.jgit.lib.Ref;
 import org.spearce.jgit.lib.RefUpdate;
+import org.spearce.jgit.lib.RefWriter;
 import org.spearce.jgit.lib.Repository;
 import org.spearce.jgit.lib.Config.SectionParser;
 import org.spearce.jgit.revwalk.ObjectWalk;

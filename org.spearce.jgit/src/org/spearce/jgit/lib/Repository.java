@@ -97,6 +97,8 @@ public class Repository {
 	private final RefDatabase refs;
 
 	private final ObjectDirectory objectDatabase;
+	
+	private final InfoDatabase infoDatabase;
 
 	private GitIndex index;
 
@@ -116,6 +118,7 @@ public class Repository {
 		gitDir = d.getAbsoluteFile();
 		refs = new RefDatabase(this);
 		objectDatabase = new ObjectDirectory(FS.resolve(gitDir, "objects"));
+		infoDatabase = new InfoDirectoryDatabase(FS.resolve(gitDir, "info"));
 
 		final FileBasedConfig userConfig;
 		userConfig = SystemReader.getInstance().openUserConfig();
@@ -177,6 +180,7 @@ public class Repository {
 		gitDir.mkdirs();
 		refs.create();
 		objectDatabase.create();
+		infoDatabase.create();
 
 		new File(gitDir, "branches").mkdir();
 		new File(gitDir, "remotes").mkdir();
@@ -209,6 +213,13 @@ public class Repository {
 	 */
 	public ObjectDatabase getObjectDatabase() {
 		return objectDatabase;
+	}
+	
+	/**
+	 * @return the info database which stores this repository's info
+	 */
+	public InfoDatabase getInfoDatabase() {
+		return infoDatabase;
 	}
 
 	/**
