@@ -40,7 +40,6 @@ package org.spearce.jgit.util;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -48,6 +47,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.UUID;
 
 public abstract class JGitTestUtil {
 	public static final String CLASSPATH_TO_RESOURCES = "org/spearce/jgit/test/resources/";
@@ -104,5 +104,23 @@ public abstract class JGitTestUtil {
 
 	private static ClassLoader cl() {
 		return JGitTestUtil.class.getClassLoader();
+	}
+
+	public static boolean deleteDir(File dir) {
+	    if (dir.isDirectory()) {
+	        String[] children = dir.list();
+	        for (int i=0; i<children.length; i++) {
+	            boolean success = deleteDir(new File(dir, children[i]));
+	            if (!success) {
+	                return false;
+	            }
+	        }
+	    }
+	    // The directory is now empty so delete it
+	    return dir.delete();
+	}
+
+	public static File generateTempDirectoryFileObject() {
+		return new File(new File(System.getProperty("java.io.tmpdir")), UUID.randomUUID().toString());
 	}
 }

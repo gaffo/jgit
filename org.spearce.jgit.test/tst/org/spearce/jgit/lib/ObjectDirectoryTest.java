@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import org.spearce.jgit.util.JGitTestUtil;
 
@@ -19,13 +18,13 @@ public class ObjectDirectoryTest extends TestCase {
 
 	@Override
 	protected void setUp() throws Exception {
-		testDir = new File(new File(System.getProperty("java.io.tmpdir")), UUID.randomUUID().toString());
+		testDir = JGitTestUtil.generateTempDirectoryFileObject();
 	}
-	
+
 	@Override
 	protected void tearDown() throws Exception {
 		if (testDir.exists()){
-			deleteDir(testDir);
+			JGitTestUtil.deleteDir(testDir);
 		}
 	}
 
@@ -93,20 +92,6 @@ public class ObjectDirectoryTest extends TestCase {
 		assertEquals(expectedContents, JGitTestUtil.readFileAsString(packsFile));
 	}
 	
-	public boolean deleteDir(File dir) {
-        if (dir.isDirectory()) {
-            String[] children = dir.list();
-            for (int i=0; i<children.length; i++) {
-                boolean success = deleteDir(new File(dir, children[i]));
-                if (!success) {
-                    return false;
-                }
-            }
-        }
-        // The directory is now empty so delete it
-        return dir.delete();
-    }
-
 	private void createTestDir(){
 		testDir.mkdir();
 	}
