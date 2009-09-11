@@ -517,6 +517,6 @@ public class ObjectDirectory extends ObjectDatabase {
 
 	@Override
 	public void updateInfoCache() throws IOException {
-		new UpdateDirectoryBasedPacksInfoCache(this.listLocalPacks(), new File(this.infoDirectory, "packs")).execute();
+		new UpdateDirectoryBasedPacksInfoCache(this.listLocalPacks(), new File(this.getDirectory(), Constants.CACHED_PACKS_FILE)).execute();
 	}
 }

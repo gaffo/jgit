@@ -79,7 +79,7 @@ public class ObjectDirectoryTest extends TestCase {
 		assertEquals(TEST_PACK.getName(), localPacks.get(0).getPackFile().getName());
 	}
 	
-	public void testUpdateInfoCacheCreatesPacksFile() throws Exception {
+	public void testUpdateInfoCacheCreatesPacksAndRefsFile() throws Exception {
 		createSamplePacksDir();
 
 		ObjectDirectory od = new ObjectDirectory(testDir);
@@ -87,7 +87,7 @@ public class ObjectDirectoryTest extends TestCase {
 		od.updateInfoCache();
 		
 		String expectedContents = new PacksFileContentsCreator(od.listLocalPacks()).toString();
-		File packsFile = new File(od.getDirectory(), "info/packs");
+		File packsFile = new File(od.getDirectory(), Constants.CACHED_PACKS_FILE);
 
 		assertTrue(packsFile.exists());
 		assertEquals(expectedContents, JGitTestUtil.readFileAsString(packsFile));
@@ -103,7 +103,6 @@ public class ObjectDirectoryTest extends TestCase {
                 }
             }
         }
-    
         // The directory is now empty so delete it
         return dir.delete();
     }

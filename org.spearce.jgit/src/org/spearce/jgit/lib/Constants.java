@@ -224,6 +224,9 @@ public final class Constants {
 
 	/** Info refs folder */
 	public static final String INFO_REFS = "info/refs";
+	
+	/** cached packs file */
+	public static final String CACHED_PACKS_FILE = "info/packs"; 
 
 	/** Packed refs file */
 	public static final String PACKED_REFS = "packed-refs";
