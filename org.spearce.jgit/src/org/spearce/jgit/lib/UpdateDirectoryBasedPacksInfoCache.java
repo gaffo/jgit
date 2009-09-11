@@ -6,12 +6,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.List;
 
-public class UpdateDirectoryInfoCache {
+public class UpdateDirectoryBasedPacksInfoCache {
 
 	private List<PackFile> packsList;
 	private File infoPacksFile;
 
-	public UpdateDirectoryInfoCache(List<PackFile> packsList,
+	public UpdateDirectoryBasedPacksInfoCache(List<PackFile> packsList,
 									File infoPacksFile) {
 		this.packsList = packsList;
 		this.infoPacksFile = infoPacksFile;
