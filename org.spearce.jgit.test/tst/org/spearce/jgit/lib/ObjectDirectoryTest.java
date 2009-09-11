@@ -1,6 +1,8 @@
 package org.spearce.jgit.lib;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -69,17 +71,26 @@ public class ObjectDirectoryTest extends TestCase {
 	}
 	
 	public void testListLocalPacksWhenThereIsAPack() throws Exception {
-		createTestDir();
-		File packsDir = new File(testDir, "pack");
-		packsDir.mkdirs();
-		
-		JGitTestUtil.copyFile(TEST_PACK, new File(packsDir, TEST_PACK.getName()));
-		JGitTestUtil.copyFile(TEST_IDX, new File(packsDir, TEST_IDX.getName()));
+		createSamplePacksDir();
 
 		ObjectDirectory od = new ObjectDirectory(testDir);
 		List<PackFile> localPacks = od.listLocalPacks();
 		assertEquals(1, localPacks.size());
 		assertEquals(TEST_PACK.getName(), localPacks.get(0).getPackFile().getName());
+	}
+	
+	public void testUpdateInfoCacheCreatesPacksFile() throws Exception {
+		createSamplePacksDir();
+
+		ObjectDirectory od = new ObjectDirectory(testDir);
+		od.create();
+		od.updateInfoCache();
+		
+		String expectedContents = new PacksFileContentsCreator(od.listLocalPacks()).toString();
+		File packsFile = new File(od.getDirectory(), "info/packs");
+
+		assertTrue(packsFile.exists());
+		assertEquals(expectedContents, JGitTestUtil.readFileAsString(packsFile));
 	}
 	
 	public boolean deleteDir(File dir) {
@@ -99,6 +110,15 @@ public class ObjectDirectoryTest extends TestCase {
 
 	private void createTestDir(){
 		testDir.mkdir();
+	}
+
+	private void createSamplePacksDir() throws IOException {
+		createTestDir();
+		File packsDir = new File(testDir, "pack");
+		packsDir.mkdirs();
+		
+		JGitTestUtil.copyFile(TEST_PACK, new File(packsDir, TEST_PACK.getName()));
+		JGitTestUtil.copyFile(TEST_IDX, new File(packsDir, TEST_IDX.getName()));
 	}
 	
 }
