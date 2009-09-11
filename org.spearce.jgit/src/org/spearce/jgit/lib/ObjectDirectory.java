@@ -511,6 +511,12 @@ public class ObjectDirectory extends ObjectDatabase {
 
 	@Override
 	public List<PackFile> listLocalPacks() {
+		tryAgain1();
 		return new ArrayList<PackFile>(Arrays.asList(packList.get().packs));
+	}
+
+	@Override
+	public void updateInfoCache() {
+		new UpdateDirectoryInfoCache(this.listLocalPacks(), this.infoDirectory).execute();
 	}
 }

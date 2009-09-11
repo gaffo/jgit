@@ -38,6 +38,12 @@
 package org.spearce.jgit.util;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 
@@ -60,9 +66,22 @@ public abstract class JGitTestUtil {
 		}
 		try {
 			return new File(url.toURI());
-		} catch(URISyntaxException e) {
+		} catch (URISyntaxException e) {
 			return new File(url.getPath());
 		}
+	}
+
+	public static void copyFile(final File fromFile, final File toFile) throws IOException {
+		InputStream in = new FileInputStream(fromFile);
+		OutputStream out = new FileOutputStream(toFile);
+
+		byte[] buf = new byte[1024];
+		int len;
+		while ((len = in.read(buf)) > 0) {
+			out.write(buf, 0, len);
+		}
+		in.close();
+		out.close();
 	}
 
 	private static ClassLoader cl() {
