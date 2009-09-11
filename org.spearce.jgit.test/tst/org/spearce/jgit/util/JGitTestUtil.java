@@ -37,10 +37,12 @@
 
 package org.spearce.jgit.util;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -71,7 +73,8 @@ public abstract class JGitTestUtil {
 		}
 	}
 
-	public static void copyFile(final File fromFile, final File toFile) throws IOException {
+	public static void copyFile(final File fromFile, final File toFile)
+			throws IOException {
 		InputStream in = new FileInputStream(fromFile);
 		OutputStream out = new FileOutputStream(toFile);
 
@@ -82,6 +85,21 @@ public abstract class JGitTestUtil {
 		}
 		in.close();
 		out.close();
+	}
+
+	public static String readFileAsString(final File file)
+			throws java.io.IOException {
+		StringBuilder fileData = new StringBuilder(1000);
+		BufferedReader reader = new BufferedReader(new FileReader(file));
+		char[] buf = new char[1024];
+		int numRead = 0;
+		while ((numRead = reader.read(buf)) != -1) {
+			String readData = String.valueOf(buf, 0, numRead);
+			fileData.append(readData);
+			buf = new char[1024];
+		}
+		reader.close();
+		return fileData.toString();
 	}
 
 	private static ClassLoader cl() {
