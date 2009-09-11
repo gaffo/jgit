@@ -521,6 +521,16 @@ public class ReceivePack {
 			}
 
 			postReceive.onPostReceive(this, filterCommands(Result.OK));
+			updateObjectInfoCache();
+		}
+	}
+
+	private void updateObjectInfoCache() {
+		try{
+			getRepository().getObjectDatabase().updateInfoCache();
+		} 
+		catch (IOException e){
+			sendMessage("error updating server info: " + e.getMessage());
 		}
 	}
 
