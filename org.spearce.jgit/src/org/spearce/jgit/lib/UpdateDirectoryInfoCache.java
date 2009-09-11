@@ -1,22 +1,27 @@
 package org.spearce.jgit.lib;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 public class UpdateDirectoryInfoCache {
 
 	private List<PackFile> packsList;
-	private File infoDirectory;
+	private File infoPacksFile;
 
 	public UpdateDirectoryInfoCache(List<PackFile> packsList,
-			File infoDirectory) {
+									File infoPacksFile) {
 		this.packsList = packsList;
-		this.infoDirectory = infoDirectory;
+		this.infoPacksFile = infoPacksFile;
 	}
 
-	public void execute() {
-//		File objectFile = objectDatabase.
-//		String packsContents = new PacksFileContentsCreator(this.objectDatabase.listLocalPacks()).toString();
+	public void execute() throws IOException {
+		String packsContents = new PacksFileContentsCreator(packsList).toString();
+		FileOutputStream fos = new FileOutputStream(infoPacksFile);
+		fos.write(packsContents.getBytes());
+		fos.close();
 	}
 
 }
