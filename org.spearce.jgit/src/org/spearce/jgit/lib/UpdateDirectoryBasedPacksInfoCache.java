@@ -1,6 +1,5 @@
 package org.spearce.jgit.lib;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
