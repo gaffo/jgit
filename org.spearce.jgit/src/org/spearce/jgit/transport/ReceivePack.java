@@ -523,6 +523,16 @@ public class ReceivePack {
 
 			postReceive.onPostReceive(this, filterCommands(Result.OK));
 			updateObjectInfoCache();
+			updateInfoRefsCache();
+		}
+	}
+
+	private void updateInfoRefsCache() {
+		try{
+			getRepository().getInfoDatabase().updateInfoCache(getRepository().getAllRefs().values());
+		}
+		catch (IOException e){
+			sendMessage("error updating info/refs: " + e.getMessage());
 		}
 	}
 
