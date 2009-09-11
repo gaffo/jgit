@@ -78,8 +78,9 @@ public abstract class ObjectDatabase {
 	 * Creates the caches that are typically done by 
 	 * update-server-info, namely objects/info/packs and 
 	 * info/refs
+	 * @throws IOException 
 	 */
-	public abstract void updateInfoCache();
+	public abstract void updateInfoCache() throws IOException;
 	
 	/**
 	 * Does this database exist yet?

@@ -132,7 +132,7 @@ public final class AlternateRepositoryDatabase extends ObjectDatabase {
 	}
 
 	@Override
-	public void updateInfoCache() {
+	public void updateInfoCache() throws IOException {
 		odb.updateInfoCache();
 	}
 }
