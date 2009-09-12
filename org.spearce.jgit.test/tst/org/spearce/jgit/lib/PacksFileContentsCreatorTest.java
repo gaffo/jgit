@@ -53,7 +53,7 @@ public class PacksFileContentsCreatorTest extends TestCase {
 		List<PackFile> packs = new ArrayList<PackFile>();
 		packs.add(new PackFile(TEST_IDX, TEST_PACK));
 		
-		assertEquals("P " + TEST_PACK.getName() + '\r', new PacksFileContentsCreator(packs).toString());
+		assertEquals("P " + TEST_PACK.getName() + "\n\n", new PacksFileContentsCreator(packs).toString());
 	}
 	
 	public void testGettingPacksContentsMultiplePacks() throws Exception {
@@ -63,9 +63,10 @@ public class PacksFileContentsCreatorTest extends TestCase {
 		packs.add(new PackFile(TEST_IDX, TEST_PACK));
 		
 		StringBuilder expected = new StringBuilder();
-		expected.append("P ").append(TEST_PACK.getName()).append("\r");
-		expected.append("P ").append(TEST_PACK.getName()).append("\r");
-		expected.append("P ").append(TEST_PACK.getName()).append("\r");
+		expected.append("P ").append(TEST_PACK.getName()).append('\n');
+		expected.append("P ").append(TEST_PACK.getName()).append('\n');
+		expected.append("P ").append(TEST_PACK.getName()).append('\n');
+		expected.append('\n');
 		
 		assertEquals(expected.toString(), new PacksFileContentsCreator(packs).toString());
 	}

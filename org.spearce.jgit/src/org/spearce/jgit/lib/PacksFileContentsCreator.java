@@ -49,8 +49,9 @@ public class PacksFileContentsCreator {
 	public String toString(){
 		StringBuilder builder = new StringBuilder();
 		for (PackFile packFile : packs) {
-			builder.append("P ").append(packFile.getPackFile().getName()).append('\r');
+			builder.append("P ").append(packFile.getPackFile().getName()).append('\n');
 		}
+		builder.append('\n');
 		return builder.toString();
 	}
 
